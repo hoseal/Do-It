@@ -115,7 +115,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="taskNameField" destination="aKs-mr-vHw" id="G2l-oN-vKU"/>
+                        <outlet property="taskTextField" destination="aKs-mr-vHw" id="e9d-Ls-sC2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuM-Df-Jps" userLabel="First Responder" sceneMemberID="firstResponder"/>

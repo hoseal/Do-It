@@ -10,6 +10,8 @@
 
 @interface NewTaskViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *taskTextField;
+
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
 

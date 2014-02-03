@@ -10,7 +10,6 @@
 
 @interface TasksViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextField *taskTextField;
 @property (strong, nonatomic) NSArray *tasks;
 
 @end
