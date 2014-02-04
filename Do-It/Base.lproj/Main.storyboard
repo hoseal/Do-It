@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" editingAccessoryType="detailDisclosureButton" textLabel="2pz-XF-uhl" style="IBUITableViewCellStyleDefault" id="m0d-ak-lc9">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="2pz-XF-uhl" style="IBUITableViewCellStyleDefault" id="m0d-ak-lc9">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="KYS-2G-3D3">
@@ -45,6 +45,9 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="gvl-J8-rk9" kind="push" identifier="TaskDetailsSegue" id="roL-sQ-ti8"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -53,12 +56,12 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Master" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" title="Tasks" id="tQt-TN-PWz">
                         <barButtonItem key="backBarButtonItem" title="Dan" id="9qW-Wc-m7w"/>
                         <barButtonItem key="rightBarButtonItem" title="Add" id="toq-dj-bDb">
                             <connections>
                                 <action selector="addNewTask:" destination="pGg-6v-bdr" id="aLc-He-blv"/>
-                                <segue destination="YkL-HM-raw" kind="modal" id="0iw-e0-K15"/>
+                                <segue destination="YkL-HM-raw" kind="modal" identifier="NewTaskSegue" id="0iw-e0-K15"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -115,7 +118,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="taskTextField" destination="aKs-mr-vHw" id="e9d-Ls-sC2"/>
+                        <outlet property="taskTextField" destination="aKs-mr-vHw" id="888-7q-HQm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuM-Df-Jps" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -169,6 +172,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jtq-mu-nG6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1965" y="99"/>
+        </scene>
+        <!--View Controller - Task-->
+        <scene sceneID="qis-Fl-QTw">
+            <objects>
+                <viewController id="gvl-J8-rk9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2cI-aw-FCb"/>
+                        <viewControllerLayoutGuide type="bottom" id="jTv-92-Hbw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tmh-8o-5Jd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Task" id="P4f-AK-gZP"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5yY-y0-msr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="913" y="-625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MFX-dJ-fIB">

@@ -7,6 +7,8 @@
 //
 
 #import "NewTaskViewController.h"
+#import "TasksViewController.h"
+#import "Task.h"
 
 @interface NewTaskViewController ()
 
@@ -22,11 +24,18 @@
 
 
 - (IBAction)cancel:(id)sender {
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)save:(id)sender {
-    
+    UINavigationController *navVC = (UINavigationController *)self.presentingViewController;
+    TasksViewController *tasksVC = (TasksViewController*)navVC.topViewController;
+    Task *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task"
+                                                  inManagedObjectContext:self.context];
+    newTask.name = self.taskTextField.text;
+    [self.context save:nil];
+    [tasksVC.tasks addObject:newTask];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

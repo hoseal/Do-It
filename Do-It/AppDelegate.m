@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TasksViewController.h"
 
 @implementation AppDelegate
 
@@ -17,7 +18,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window.tintColor = [UIColor redColor];
-
+    UINavigationController *navVC = (UINavigationController *)self.window.rootViewController;
+    TasksViewController *tasksVC = navVC.viewControllers[0];
+    tasksVC.context = [self managedObjectContext];
     return YES;
 }
 							

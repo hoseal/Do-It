@@ -7,10 +7,10 @@
 //
 
 #import "TasksViewController.h"
+#import "Task.h"
+#import "NewTaskViewController.h"
 
 @interface TasksViewController ()
-
-@property (strong, nonatomic) NSArray *tasks;
 
 @end
 
@@ -20,13 +20,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tasks = @[@"Walk the dog", @"Call plumber", @"Get ready for lecture"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Task"];
+    self.tasks = [[self.context executeFetchRequest:request error:nil] mutableCopy];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    // Just because the array has changed doesn't mean the table reflects those changes.
+    [self.tableView reloadData];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"NewTaskSegue"]) {
+        UINavigationController *navVC = (UINavigationController *)segue.destinationViewController;
+        NewTaskViewController *newTaskVC = navVC.viewControllers[0];
+        newTaskVC.context = self.context;
+    }
+    
 }
 
 #pragma mark - Table view data source
@@ -47,34 +57,34 @@
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = [self.tasks objectAtIndex:indexPath.row];
-    
+    Task *task = [self.tasks objectAtIndex:indexPath.row];
+    cell.textLabel.text = task.name;
     
     return cell;
 }
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        Task *task = self.tasks[indexPath.row];
+        [self.context deleteObject:task];
+        [self.tasks removeObject:task];
+        [self.context save:nil];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+//    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//    }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.

@@ -10,4 +10,7 @@
 
 @interface TasksViewController : UITableViewController
 
+@property (strong, nonatomic) NSMutableArray *tasks;
+@property (strong, nonatomic) NSManagedObjectContext *context;
+
 @end

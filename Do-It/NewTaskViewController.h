@@ -10,4 +10,6 @@
 
 @interface NewTaskViewController : UITableViewController
 
+@property (strong, nonatomic) NSManagedObjectContext *context;
+
 @end
