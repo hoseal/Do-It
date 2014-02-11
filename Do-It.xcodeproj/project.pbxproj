@@ -27,6 +27,7 @@
 		372B296818974B680089AFFA /* TasksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 372B296718974B680089AFFA /* TasksViewController.m */; };
 		3735C494189B5B78007E3245 /* NewTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735C493189B5B78007E3245 /* NewTaskViewController.m */; };
 		3735C51618A079FF007E3245 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735C51518A079FF007E3245 /* Task.m */; };
+		373861A718A9A3AA004DA51A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 373861A618A9A3AA004DA51A /* TaskViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		3735C493189B5B78007E3245 /* NewTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTaskViewController.m; sourceTree = "<group>"; };
 		3735C51418A079FF007E3245 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
 		3735C51518A079FF007E3245 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		373861A518A9A3AA004DA51A /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
+		373861A618A9A3AA004DA51A /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +139,8 @@
 				372B296718974B680089AFFA /* TasksViewController.m */,
 				3735C492189B5B78007E3245 /* NewTaskViewController.h */,
 				3735C493189B5B78007E3245 /* NewTaskViewController.m */,
+				373861A518A9A3AA004DA51A /* TaskViewController.h */,
+				373861A618A9A3AA004DA51A /* TaskViewController.m */,
 				372B2938189731F90089AFFA /* Main.storyboard */,
 				372B2944189731F90089AFFA /* Images.xcassets */,
 				372B293B189731F90089AFFA /* Do_It.xcdatamodeld */,
@@ -278,6 +283,7 @@
 				372B293D189731F90089AFFA /* Do_It.xcdatamodeld in Sources */,
 				372B296818974B680089AFFA /* TasksViewController.m in Sources */,
 				3735C494189B5B78007E3245 /* NewTaskViewController.m in Sources */,
+				373861A718A9A3AA004DA51A /* TaskViewController.m in Sources */,
 				372B2937189731F90089AFFA /* AppDelegate.m in Sources */,
 				3735C51618A079FF007E3245 /* Task.m in Sources */,
 				372B2933189731F90089AFFA /* main.m in Sources */,

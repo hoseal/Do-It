@@ -9,6 +9,7 @@
 #import "TasksViewController.h"
 #import "Task.h"
 #import "NewTaskViewController.h"
+#import "TaskViewController.h"
 
 @interface TasksViewController ()
 
@@ -35,8 +36,24 @@
         UINavigationController *navVC = (UINavigationController *)segue.destinationViewController;
         NewTaskViewController *newTaskVC = navVC.viewControllers[0];
         newTaskVC.context = self.context;
+    } else if ([segue.identifier isEqualToString:@"TaskDetailsSegue"]) {
+        TaskViewController *taskVC = (TaskViewController *)segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+        Task *task = self.tasks[indexPath.row];
+        taskVC.task = task;
     }
     
+}
+
+- (void)completeTask:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    CGPoint origin = button.frame.origin;
+    CGPoint translatedPoint = [button convertPoint:origin toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:translatedPoint];
+    Task *task = self.tasks[indexPath.row];
+    task.completed = [NSNumber numberWithBool:YES];
+    [self.context save:nil];
+    [button setSelected:YES];
 }
 
 #pragma mark - Table view data source
@@ -58,8 +75,15 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     Task *task = [self.tasks objectAtIndex:indexPath.row];
-    cell.textLabel.text = task.name;
-    
+    UILabel *nameLabel = (UILabel *)[cell viewWithTag:11];
+    nameLabel.text = task.name;
+    UIButton *doneButton = (UIButton *)[cell viewWithTag:10];
+    if ([task.completed isEqual:@YES]) {
+        [doneButton setSelected:YES];
+    }
+    [doneButton addTarget:self
+                   action:@selector(completeTask:)
+         forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
 
