@@ -21,14 +21,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Task"];
-    self.tasks = [[self.context executeFetchRequest:request error:nil] mutableCopy];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    [self.tableView reloadData];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithResource:@"Task"];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               NSInteger status = [(NSHTTPURLResponse*)response statusCode];
+                               NSLog(@"Status code %d", status);
+                               id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                               NSArray *objects = [jsonObject valueForKey:@"results"];
+                               [self.context reset];
+                               self.tasks = [NSMutableArray array];
+                               for (NSDictionary *object in objects) {
+                                   Task *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task"
+                                                                                 inManagedObjectContext:self.context];
+                                   [newTask setValuesForKeysWithDictionary:object];
+                                   [self.tasks addObject:newTask];
+                               }
+                               [self.tableView reloadData];
+                           }];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -45,15 +60,27 @@
     
 }
 
-- (void)completeTask:(id)sender {
+- (void)checkButtonPressed:(id)sender {
     UIButton *button = (UIButton *)sender;
     CGPoint origin = button.frame.origin;
     CGPoint translatedPoint = [button convertPoint:origin toView:self.tableView];
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:translatedPoint];
     Task *task = self.tasks[indexPath.row];
-    task.completed = [NSNumber numberWithBool:YES];
-    [self.context save:nil];
-    [button setSelected:YES];
+    [button setSelected:!button.isSelected];
+    task.completed = [NSNumber numberWithBool:button.isSelected];
+    NSString *resource = [NSString stringWithFormat:@"Task/%@", task.objectId];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithResource:resource];
+    [request setHTTPMethod:@"PUT"];
+    NSDictionary *dict = [task dictionaryWithValuesForKeys:@[@"name", @"completed"]];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
+    [request setHTTPBody:jsonData];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               NSInteger status = [(NSHTTPURLResponse*)response statusCode];
+                               NSLog(@"Status code %d", status);
+                           }];
+    
 }
 
 #pragma mark - Table view data source
@@ -82,7 +109,7 @@
         [doneButton setSelected:YES];
     }
     [doneButton addTarget:self
-                   action:@selector(completeTask:)
+                   action:@selector(checkButtonPressed:)
          forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
@@ -102,7 +129,17 @@
         Task *task = self.tasks[indexPath.row];
         [self.context deleteObject:task];
         [self.tasks removeObject:task];
-        [self.context save:nil];
+        
+        NSString *resource = [NSString stringWithFormat:@"Task/%@", task.objectId];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithResource:resource];
+        [request setHTTPMethod:@"DELETE"];
+        [NSURLConnection sendAsynchronousRequest:request
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                   NSInteger status = [(NSHTTPURLResponse*)response statusCode];
+                                   NSLog(@"Status code %d", status);
+                               }];
+        
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
 //    else if (editingStyle == UITableViewCellEditingStyleInsert) {

@@ -33,7 +33,26 @@
     Task *newTask = [NSEntityDescription insertNewObjectForEntityForName:@"Task"
                                                   inManagedObjectContext:self.context];
     newTask.name = self.taskTextField.text;
-    [self.context save:nil];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithResource:@"Task"];
+    [request setHTTPMethod:@"POST"];
+    NSMutableDictionary *dict = [[newTask dictionaryWithValuesForKeys:@[@"name", @"completed"]] mutableCopy];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [defaults stringForKey:@"UserId"];
+    NSDictionary *acl = @{ userId : @{ @"read" : @YES, @"write" : @YES } };
+    
+    [dict setValue:acl forKey:@"ACL"];
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
+    [request setHTTPBody:jsonData];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               NSInteger status = [(NSHTTPURLResponse*)response statusCode];
+                               NSLog(@"Status code %d", status);
+                           }];
+    
     [tasksVC.tasks addObject:newTask];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

@@ -13,6 +13,7 @@
 @interface Task : NSManagedObject
 
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * objectId;
 @property (nonatomic, retain) NSNumber * completed;
 
 @end

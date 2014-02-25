@@ -12,6 +12,7 @@
 @implementation Task
 
 @dynamic name;
+@dynamic objectId;
 @dynamic completed;
 
 @end

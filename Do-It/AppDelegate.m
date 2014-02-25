@@ -21,6 +21,43 @@
     UINavigationController *navVC = (UINavigationController *)self.window.rootViewController;
     TasksViewController *tasksVC = navVC.viewControllers[0];
     tasksVC.context = [self managedObjectContext];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *sessionToken = [defaults stringForKey:@"SessionToken"];
+    if (!sessionToken) {
+        /**
+         It's up to you to figure out the code to present a view controller so that the user can 
+         either sign up for your do-it service or login if they already have an account.
+         
+         When you get the response from signing up or logging in, get the sessionToken and objectId from the
+         Parse response and save it to your prefs like so:
+         
+         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+         [defaults setValue:sessionToken forKey:@"SessionToken"];
+         [defaults setValue:objectId forKey:@"UserId"];
+         [defaults synchronize];
+         
+         For the user to see only the tasks he or she created, you must add the following
+         key-value pair to the task dictionary before POSTing the new task.
+         
+         See NewTaskViewController.m for the example.
+         
+         READ PARSE DOCS regarding USERS!!
+         
+         For Create a new user, you can use a POST call just like we did when creating a new task.
+         
+         For tand existing user to log in, you cannot POST the username and password to the http body, it must be added to the end of the URL and the method is GET.
+         
+         So assuming you have NSString variables for username and password with values you got from the text fields. Then you have the convert add percent escapes to the strings. Your request would look something like this: (THIS CODE WOULD GO INTO YOUR login view controller;
+         
+         NSString *encodedUsername = [username stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+         NSString *encodedPassword = [password stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding];
+         NSString *resource = [NSString stringWithFormat:@"?username=%@&password=%@", encodedUsername, encodedPassword];
+         NSMutableURLRequest *request = [NSMutableUrlRequest requestWithResource:resource];
+         ...
+         */
+    }
+    
     return YES;
 }
 							
@@ -104,11 +141,9 @@
         return _persistentStoreCoordinator;
     }
     
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Do_It.sqlite"];
-    
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
         /*
          Replace this implementation with code to handle the error appropriately.
          

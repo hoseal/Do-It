@@ -28,6 +28,7 @@
 		3735C494189B5B78007E3245 /* NewTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735C493189B5B78007E3245 /* NewTaskViewController.m */; };
 		3735C51618A079FF007E3245 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735C51518A079FF007E3245 /* Task.m */; };
 		373861A718A9A3AA004DA51A /* TaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 373861A618A9A3AA004DA51A /* TaskViewController.m */; };
+		373BA43E18BC342E00D21969 /* NSMutableURLRequest+Parse.m in Sources */ = {isa = PBXBuildFile; fileRef = 373BA43D18BC342E00D21969 /* NSMutableURLRequest+Parse.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,8 @@
 		3735C51518A079FF007E3245 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		373861A518A9A3AA004DA51A /* TaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskViewController.h; sourceTree = "<group>"; };
 		373861A618A9A3AA004DA51A /* TaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskViewController.m; sourceTree = "<group>"; };
+		373BA43C18BC342E00D21969 /* NSMutableURLRequest+Parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parse.h"; sourceTree = "<group>"; };
+		373BA43D18BC342E00D21969 /* NSMutableURLRequest+Parse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parse.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,8 @@
 				372B293B189731F90089AFFA /* Do_It.xcdatamodeld */,
 				3735C51418A079FF007E3245 /* Task.h */,
 				3735C51518A079FF007E3245 /* Task.m */,
+				373BA43C18BC342E00D21969 /* NSMutableURLRequest+Parse.h */,
+				373BA43D18BC342E00D21969 /* NSMutableURLRequest+Parse.m */,
 				372B292D189731F90089AFFA /* Supporting Files */,
 			);
 			path = "Do-It";
@@ -283,6 +288,7 @@
 				372B293D189731F90089AFFA /* Do_It.xcdatamodeld in Sources */,
 				372B296818974B680089AFFA /* TasksViewController.m in Sources */,
 				3735C494189B5B78007E3245 /* NewTaskViewController.m in Sources */,
+				373BA43E18BC342E00D21969 /* NSMutableURLRequest+Parse.m in Sources */,
 				373861A718A9A3AA004DA51A /* TaskViewController.m in Sources */,
 				372B2937189731F90089AFFA /* AppDelegate.m in Sources */,
 				3735C51618A079FF007E3245 /* Task.m in Sources */,
